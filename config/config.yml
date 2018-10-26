@@ -1,0 +1,33 @@
+path:
+    root: '/datastore'
+    log: '/datastore/changelog'
+    raw: '/datastore/data/raw'
+    export: '/datastore/data/export'
+    tmp: '/datastore/data/tmp'
+
+gsbucket:
+    src: gs://data.map.life/raw/
+    dest: gs://data.map.life/export/
+    daily: gs://data.map.life/daily/
+
+# SHOULD NOT PUT CREDS IN GIT
+# this plain text config should be deprecated
+postgres:
+    user: postgres
+    host: localhost
+    port: 5432
+    password: '@Days3and2' 
+
+mysql:
+    user: 
+    host: 
+    password:
+
+cloudsql:
+    user: postgres
+    host: 35.238.168.212
+    port: 5432
+    password: '@Days3and2'
+
+downloads:
+    downloadpath: '/home/sean/mlaspkg/downloads/'
