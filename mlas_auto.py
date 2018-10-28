@@ -24,8 +24,8 @@ idNumberMaster = []
 config = yaml.safe_load(open("/home/ubuntu/mlaspkg/config/config.yml"))
 #gsbucket = config['gsbucket']['src']
 
-queryRange = sys.argv[1]
-queryRange = queryRange*1000
+queryNum = sys.argv[1]
+queryNum = queryNum*1000
 
 dlPath = config['downloads']['downloadpath']
 path = '/home/ubuntu/mlaspkg/chromedriver'
@@ -59,7 +59,7 @@ def main():
         driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/reportClient')
         mlasCheck()
         time.sleep(2)
-        queryRange = idNumberMaster[queryRange-1000:queryRange]
+        queryRange = idNumberMaster[queryNum-1000:queryNum]
         for idNum in queryRange:
             ReportQuery(idNum)
             FinalQuery()
