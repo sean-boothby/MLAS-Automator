@@ -11,4 +11,4 @@ gsbucket:
     daily:
 
 downloads:
-    downloadpath: '/home/sean/mlaspkg/downloads/'
+    downloadpath: '/home/sean/tools/test/MLAS-Automator/downloads/'
