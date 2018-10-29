@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Oct  7 21:47:45 2018
-
 @author: sean
 """
 import os
@@ -21,14 +20,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 idNumberMaster = []
 
-config = yaml.safe_load(open("/home/ubuntu/mlaspkg/config/config.yml"))
+config = yaml.safe_load(open("/home/sean/tools/test/MLAS-Automator/config/config.yml"))
 #gsbucket = config['gsbucket']['src']
 
 queryNum = sys.argv[1]
 queryNum = queryNum*1000
 
+
 dlPath = config['downloads']['downloadpath']
-path = '/home/ubuntu/mlaspkg/chromedriver'
+path = '/home/sean/tools/test/MLAS-Automator/chromedriver'
 
 
 options = webdriver.ChromeOptions()
@@ -44,47 +44,46 @@ starting_url = 'https://www.one-key.gov.on.ca/iaalogin/IAALogin.jsp'
 
 
 def main(): 
-    try:
-        driver.get(starting_url)
-        onekeyLogin()
-        driver.maximize_window()
-        driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/searchClient')
-        time.sleep(2)
-        driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/searchClient')
-        time.sleep(3)
-        mlasCheck()
-        clientSearch()
-        pageFlip()
-        time.sleep(2)
+    driver.get(starting_url)
+    onekeyLogin()
+    driver.maximize_window()
+    driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/searchClient')
+    time.sleep(2)
+    driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/searchClient')
+    time.sleep(3)
+    mlasCheck()
+    clientSearch()
+    pageFlip()
+    time.sleep(2)
+    driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/reportClient')
+    time.sleep(2)
+    mlasCheck()
+    print('Did not pass')
+    queryRange = idNumberMaster[queryNum-1000:queryNum]
+    print('Pass')
+    for idNum in queryRange:
+        ReportQuery(idNum)
+        FinalQuery()
+        dl = download()
+        if dl == 'Not clickable':
+            continue
+        elif dl == False:
+            for n in range(5):
+                if dl == False:
+                    dl = download()
+                else:
+                    break
         driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/reportClient')
-        mlasCheck()
-        time.sleep(2)
-        queryRange = idNumberMaster[queryNum-1000:queryNum]
-        for idNum in queryRange:
-            ReportQuery(idNum)
-            FinalQuery()
-            dl = download()
-            if dl == 'Not clickable':
-                continue
-            elif dl == False:
-                for n in range(5):
-                    if dl == False:
-                        dl = download()
-                    else:
-                        break
-            driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/reportClient')
-        driver.quit()
-        
-        ## Finished with selenium, lets organize and sync our data then finally clear our download folder
-        
-        df = excelconcat.pandasConcat(dlPath)
-        filePath = dlPath + '/master.csv'
-        df.to_csv(filePath)
+    driver.quit()
+    
+    ## Finished with selenium, lets organize and sync our data then finally clear our download folder
+    
+    df = excelconcat.pandasConcat(dlPath)
+    filePath = dlPath + '/master.csv'
+    df.to_csv(filePath)
 #        remote(gsbucket + '/' + filePath)
-        clearJunk()
+    clearJunk()
 
-    except Exception as e:
-        driver.quit()
 
 
 def onekeyLogin():
@@ -221,4 +220,3 @@ def remote(args):
     subprocess.call(remoteoptions)
 
 main()
-
