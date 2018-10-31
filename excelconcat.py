@@ -14,7 +14,7 @@ import pandas as pd
 
 
 config = yaml.safe_load(open("config/config.yml"))
-
+dlPath = config['downloads']['downloadpath']
 
 def pandasConcat(path):
     xlsxFiles = []
