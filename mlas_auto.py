@@ -165,13 +165,13 @@ def download():
             return 'Not clickable'
         for i in range(2000):
             try:
-                rename()
+                new_file = rename()
+                
                 break
             except:
                 time.sleep(0.1)
                 continue
-        print('We should have our file downloaded, lets check')
-        rename()
+        print('We should have our file downloaded')
     except:
         print('We did not click the download button, better try again')
         time.sleep(20)
@@ -188,25 +188,11 @@ def dlClick():
         time.sleep(4)
         return 'Not clickable'
 
-def downloadCheck():
-    try:
-        dlTime = os.path.getmtime(dlPath + str('/ClientReport'))
-        dlTime = datetime.fromtimestamp(dlTime)
-        now = datetime.now()
-        deltaDays = (now-dlTime).days
-        print(deltaDays)
-        
-        if deltaDays > 0:
-            return False
-        else:
-            return True
-    except:
-        return False
-
 def rename():
     old_file = os.path.join(str(dlPath), "ClientReport.xlsx")
     new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(float(random.randint(0,100) + random.randint(1,99))/100) +'.xlsx')
     os.rename(old_file, new_file)
+    return new_file
     
 main()
 
