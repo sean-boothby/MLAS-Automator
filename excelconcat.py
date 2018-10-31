@@ -38,7 +38,7 @@ def pandasConcat(path):
     return masterdf
 
 def clearJunk():
-    junkRemoval = ["rm", dlpath + "*.xlsx"]
+    junkRemoval = ["rm", "-r", dlpath + "*.xlsx"]
     subprocess.call(junkRemoval, shell=True)
 
 df = excelconcat.pandasConcat(dlPath)
