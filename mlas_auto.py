@@ -29,14 +29,14 @@ queryNum = queryNum*1000
 
 
 dlPath = config['downloads']['downloadpath']
-path = '/home/sean/tools/test/MLAS-Automator/chromedriver'
+chromepath = config['chromedriver']
 
 
 options = webdriver.ChromeOptions()
 profile = {"plugins.plugins_list": [{"enabled": False, "name": "Chrome PDF Viewer"}], "download.default_directory": str(dlPath) , "download.extensions_to_open": "applications/pdf"}
 options.add_experimental_option("prefs", profile)
 options.add_argument("--headless")
-driver = webdriver.Chrome(path, chrome_options=options)
+driver = webdriver.Chrome(chromepath, chrome_options=options)
 driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
 params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dlPath}}
 command_result = driver.execute("send_command", params)

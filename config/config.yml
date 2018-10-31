@@ -12,3 +12,5 @@ gsbucket:
 
 downloads:
     downloadpath: '/home/sean/tools/test/MLAS-Automator/downloads/'
+
+chromedriver: '/MLAS-Automator/chromedriver'
