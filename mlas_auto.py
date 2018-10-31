@@ -7,9 +7,9 @@ import os
 import sys
 import time
 import yaml
+import random
 import datetime
 import subprocess
-import excelconcat
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -24,6 +24,7 @@ config = yaml.safe_load(open("/home/sean/tools/test/MLAS-Automator/config/config
 #gsbucket = config['gsbucket']['src']
 
 queryNum = sys.argv[1]
+queryNum = int(queryNum)
 queryNum = queryNum*1000
 
 
@@ -58,9 +59,8 @@ def main():
     driver.get('https://www.mlas.mndm.gov.on.ca/mlas/index.html#/reportClient')
     time.sleep(2)
     mlasCheck()
-    print('Did not pass')
     queryRange = idNumberMaster[queryNum-1000:queryNum]
-    print('Pass')
+    print('Length of search range is: ' + str(len(queryRange)) + ' for process- ' + str(queryNum/1000))
     for idNum in queryRange:
         ReportQuery(idNum)
         FinalQuery()
@@ -78,11 +78,7 @@ def main():
     
     ## Finished with selenium, lets organize and sync our data then finally clear our download folder
     
-    df = excelconcat.pandasConcat(dlPath)
-    filePath = dlPath + '/master.csv'
-    df.to_csv(filePath)
 #        remote(gsbucket + '/' + filePath)
-    clearJunk()
 
 
 
@@ -140,7 +136,6 @@ def clientScrape():
         idsNums = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, idsX)))
         for idnum in idsNums:
             idNumberMaster.append(idnum.text)
-        print('We are scraping')
     except:
         print('Failed to scrape')
 
@@ -168,7 +163,13 @@ def download():
         clickcheck = dlClick()
         if clickcheck == 'Not clickable':
             return 'Not clickable'
-        time.sleep(15)
+        for i in range(2000):
+            try:
+                rename()
+                break
+            except:
+                time.sleep(0.1)
+                continue
         print('We should have our file downloaded, lets check')
         rename()
     except:
@@ -203,20 +204,9 @@ def downloadCheck():
         return False
 
 def rename():
-    try:
-        old_file = os.path.join(str(dlPath), "ClientReport.xlsx")
-        new_file = os.path.join(str(dlPath), "ClientReport" +str(int(time.time()))+'.xlsx')
-        os.rename(old_file, new_file)
-    except:
-        print('No download to rename')
-        
-def clearJunk():
-    junkRemoval = ["rm", dlpath + "/*.xlsx"]
-    subprocess.call(junkRemoval)
+    old_file = os.path.join(str(dlPath), "ClientReport.xlsx")
+    new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(float(random.randint(0,100) + random.randint(1,99))/100) +'.xlsx')
+    os.rename(old_file, new_file)
     
-def remote(args):
-    remoteoptions = ["gsutil", "-m", "cp", "-R", filePath]
-    remoteoptions.append(args)
-    subprocess.call(remoteoptions)
-
 main()
+
