@@ -38,8 +38,9 @@ def pandasConcat(path):
     return masterdf
 
 def clearJunk():
-    junkRemoval = ["rm", "-r", dlpath + "*.xlsx"]
-    subprocess.call(junkRemoval, shell=True)
+    destPath = os.path.join(str(os.getcwd()), 'downloads')
+    files = [i for i in os.listdir(destPath) if i not in ('master.csv')]
+    subprocess.call(['rm', '-r'] + files)
 
 df = excelconcat.pandasConcat(dlPath)
 filePath = dlPath + '/master.csv'
