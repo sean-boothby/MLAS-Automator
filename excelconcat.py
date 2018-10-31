@@ -21,11 +21,11 @@ def pandasConcat(path):
             xlsxFiles.append(file)
     for index, xlsFile in enumerate(xlsxFiles):
         if index == 0:
-            masterdf = pd.read_excel(path + '\\' + xlsFile,index=False)
+            masterdf = pd.read_excel(path + '/' + xlsFile,index=False)
             
         else:
            
-            df = pd.read_excel(path + '\\' + xlsFile)
+            df = pd.read_excel(path + '/' + xlsFile)
 
 #            masterdf=masterdf.append(df,index=False)
             masterdf = masterdf.append(df, ignore_index=True)
