@@ -8,8 +8,12 @@ Created on Fri Oct 12 15:19:21 2018
 ## Feed this script any folder filled with xlsx files of a similar nature and they will be joined together into one dataframe
 
 import os
+import yaml
+import subprocess
 import pandas as pd
 
+
+config = yaml.safe_load(open("config/config.yml"))
 
 
 def pandasConcat(path):
@@ -33,3 +37,11 @@ def pandasConcat(path):
             
     return masterdf
 
+def clearJunk():
+    junkRemoval = ["rm", dlpath + "*.xlsx"]
+    subprocess.call(junkRemoval, shell=True)
+
+df = excelconcat.pandasConcat(dlPath)
+filePath = dlPath + '/master.csv'
+df.to_csv(filePath)
+clearJunk()
