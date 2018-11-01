@@ -163,13 +163,13 @@ def download():
         clickcheck = dlClick()
         if clickcheck == 'Not clickable':
             return 'Not clickable'
-        for i in range(2000):
+        for i in range(20000):
             try:
                 new_file = rename()
                 
                 break
             except:
-                time.sleep(0.1)
+                time.sleep(0.01)
                 continue
         print('We should have our file downloaded')
     except:
@@ -190,7 +190,7 @@ def dlClick():
 
 def rename():
     old_file = os.path.join(str(dlPath), "ClientReport.xlsx")
-    new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(float(random.randint(0,100) + random.randint(1,99))/100) +'.xlsx')
+    new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(float(random.randint(0,100) + random.randint(1,99))) +'.xlsx')
     os.rename(old_file, new_file)
     return new_file
     

@@ -42,7 +42,7 @@ def clearJunk():
     files = [i for i in os.listdir(destPath) if i not in ('master.csv')]
     subprocess.call(['rm', '-r'] + files)
 
-df = excelconcat.pandasConcat(dlPath)
+df = pandasConcat(dlPath)
 filePath = dlPath + '/master.csv'
 df.to_csv(filePath)
 clearJunk()
