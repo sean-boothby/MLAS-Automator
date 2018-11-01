@@ -190,7 +190,7 @@ def dlClick():
 
 def rename():
     old_file = os.path.join(str(dlPath), "ClientReport.xlsx")
-    new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(float(random.randint(0,100) + random.randint(1,99))) +'.xlsx')
+    new_file = os.path.join(str(dlPath), "ClientReport" + str(int(time.time())) + str(int(random.randint(0,100) + random.randint(1,99))) +'.xlsx')
     os.rename(old_file, new_file)
     return new_file
     
