@@ -5,7 +5,7 @@ Created on Fri Oct 12 15:19:21 2018
 @author: sean
 """
 
-## Feed this script any folder filled with xlsx files of a similar nature and they will be joined together into one dataframe
+## pandasConcat function finds all xlsx files in the local directory and combines them using pandas into a new csv file
 
 import os
 import yaml
@@ -37,12 +37,19 @@ def pandasConcat(path):
             
     return masterdf
 
-def clearJunk():
-    destPath = os.path.join(str(os.getcwd()), 'downloads')
-    files = [i for i in os.listdir(destPath) if i not in ('master.csv')]
-    subprocess.call(['rm', '-r'] + files)
+## Clear junk will get rid of files inside the downloads folder that are not names 'safeFile'
 
-df = pandasConcat(dlPath)
-filePath = dlPath + '/master.csv'
-df.to_csv(filePath)
-clearJunk()
+def clearJunk(safeFile):
+    destPath = os.path.join(str(os.getcwd()), 'downloads')
+    files = [i for i in os.listdir(destPath) if i not in (safeFile)]
+    paths = ['downloads/' + x for x in files]
+    subprocess.call(['rm', '-r'] + paths)
+
+
+## If script is run it creates the master csv and clears the old xlsx files
+
+if __name__=="__main__":
+    df = pandasConcat(dlPath)
+    filePath = dlPath + '/master.csv'
+    df.to_csv(filePath)
+    clearJunk('master.csv')
