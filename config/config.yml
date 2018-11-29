@@ -1,16 +1,5 @@
-path:
-    root: '/datastore'
-    log: '/datastore/changelog'
-    raw: '/datastore/data/raw'
-    export: '/datastore/data/export'
-    tmp: '/datastore/data/tmp'
-
-gsbucket:
-    src:
-    dest:
-    daily:
 
 downloads:
-    downloadpath: '/home/sean/tools/test/MLAS-Automator/downloads/'
+    downloadpath: 'downloads/'
 
 chromedriver: 'driver/chromedriver'
