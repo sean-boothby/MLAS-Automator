@@ -20,7 +20,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 idNumberMaster = []
 
-config = yaml.safe_load(open("/home/sean/tools/test/MLAS-Automator/config/config.yml"))
+config = yaml.safe_load(open("config/config.yml"))
 #gsbucket = config['gsbucket']['src']
 
 queryNum = sys.argv[1]
