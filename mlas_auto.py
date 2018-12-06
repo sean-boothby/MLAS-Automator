@@ -36,6 +36,7 @@ options = webdriver.ChromeOptions()
 profile = {"plugins.plugins_list": [{"enabled": False, "name": "Chrome PDF Viewer"}], "download.default_directory": str(dlPath) , "download.extensions_to_open": "applications/pdf"}
 options.add_experimental_option("prefs", profile)
 options.add_argument("--headless")
+options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(chromepath, chrome_options=options)
 driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
 params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': dlPath}}
