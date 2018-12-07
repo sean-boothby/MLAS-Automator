@@ -13,6 +13,6 @@ do
 done
 wait
 
-python3 excelconcat.py
+sudo python3 excelconcat.py
 
 echo All done
