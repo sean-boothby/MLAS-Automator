@@ -13,6 +13,8 @@ do
 done
 wait
 
+sudo rm -r downloads/*.csv
+
 sudo python3 excelconcat.py
 
 echo All done

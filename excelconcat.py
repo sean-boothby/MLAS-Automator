@@ -9,6 +9,7 @@ Created on Fri Oct 12 15:19:21 2018
 
 import os
 import yaml
+import xlrd
 import subprocess
 import pandas as pd
 
@@ -49,6 +50,7 @@ def clearJunk(safeFile):
 ## If script is run it creates the master csv and clears the old xlsx files
 
 if __name__=="__main__":
+    clearJunk('*.xlsx')
     df = pandasConcat(dlPath)
     filePath = dlPath + '/master.csv'
     df.to_csv(filePath)
