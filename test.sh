@@ -14,7 +14,7 @@ done
 wait
 
 sudo rm -r downloads/*.csv
-
+sudo find . -type f -size 0b -delete
 sudo python3 excelconcat.py
 
 echo All done

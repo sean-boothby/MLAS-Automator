@@ -50,7 +50,7 @@ def clearJunk(safeFile):
 ## If script is run it creates the master csv and clears the old xlsx files
 
 if __name__=="__main__":
-    clearJunk('*.xlsx')
+   # clearJunk('*.xlsx')
     df = pandasConcat(dlPath)
     filePath = dlPath + '/master.csv'
     df.to_csv(filePath)
